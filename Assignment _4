@@ -1,0 +1,75 @@
+CREATE DATABASE Company;
+USE Company;
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(50),
+    salary DECIMAL(10,2),
+    age INT
+);
+INSERT INTO employees VALUES
+(1, 'Amit', 'IT', 50000, 25),
+(2, 'Rohit', 'HR', 35000, 28),
+(3, 'Sneha', 'IT', 60000, 30),
+(4, 'Priya', 'Finance', 45000, 27),
+(5, 'Karan', 'IT', 70000, 35),
+(6, 'Anjali', 'HR', 40000, 26),
+(7, 'Vikas', 'Finance', 52000, 32),
+(8, 'Neha', 'IT', 48000, 24),
+(9, 'Arjun', 'HR', 38000, 29),
+(10, 'Pooja', 'Finance', 55000, 31),
+(11, 'Ramesh', 'IT', 62000, 33),
+(12, 'Simran', 'HR', 36000, 27),
+(13, 'Deepak', 'Finance', 47000, 30),
+(14, 'Kavita', 'IT', 51000, 28),
+(15, 'Manish', 'HR', 39000, 26);
+SELECT * FROM employees;
+SELECT emp_name,salary FROM employees WHERE salary> (SELECT AVG(salary) FROM employees);
+
+SELECT Max(salary) FROM employees;
+SELECT * FROM employees ORDER BY salary DESC LIMIT 5;
+
+
+SELECT COUNT(*) AS total_employees FROM employees;
+SELECT AVG(salary) AS avg_salary FROM employees;
+SELECT MIN(salary) AS min_salary FROM employees;
+SELECT MAX(salary) AS max_salary  FROM employees;
+Aggregate : it is use for combine multiple rows.
+Scalar : only one value work ar a time.
+
+
+SELECT department, SUM(salary) AS total_salary FROM employees GROUP BY department HAVING SUM(salary) > 50000;
+
+
+SELECT COUNT(DISTINCT department) AS unique_departments FROM employees;
+Distinct : remove the duplicates value/data and only count unique value/data
+
+SELECT *
+FROM students
+WHERE marks >= 60 AND marks <= 80;
+SELECT *
+FROM students
+WHERE marks >= 60 AND marks <= 80;
+
+SELECT *
+FROM employees
+WHERE commission IS NULL;
+to check NULL use (Is Null, Is not Null)
+
+UPDATE employees
+SET salary = salary * 1.10
+WHERE department = 'IT';
+
+
+DELETE FROM students
+WHERE marks < 40;
+Once a DELETE is committed in many environments, it is difficult or impossible to undo without backup
+
+
+SELECT *
+FROM employees e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE department = e.department
+);
